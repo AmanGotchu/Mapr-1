@@ -23,6 +23,9 @@ class ViewController: UIViewController {
     var centered = false
     
     var destination: CLLocationCoordinate2D?
+    var destinationPin: MKPointAnnotation?
+    
+    var routePolylines: [MKPolyline]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +46,7 @@ class ViewController: UIViewController {
         
         // Set up press recognizer
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
-        longPressRecognizer.minimumPressDuration = 1.0
+        longPressRecognizer.minimumPressDuration = 0.5
         mapView.addGestureRecognizer(longPressRecognizer)
         
         // Set up buttons
@@ -62,18 +65,47 @@ class ViewController: UIViewController {
         let touchPoint = gestureRecognizer.location(in: mapView)
         destination = mapView.convert(touchPoint, toCoordinateFrom: mapView)
         
-        let pin = MKPointAnnotation()
-        pin.coordinate = destination!
+        if let pin = destinationPin {
+            mapView.removeAnnotation(pin)
+        }
         
-        mapView.addAnnotation(pin)
+        if let polylines = routePolylines {
+            mapView.removeOverlays(polylines)
+        }
+        
+        destinationPin = MKPointAnnotation()
+        destinationPin?.coordinate = destination!
+        
+        mapView.addAnnotation(destinationPin!)
     }
     
     @IBAction func navigate(_ sender: UIButton) {
         print("Navigate pressed")
-        if let dest = destination {
+        if let source = currentLocation, let dest = destination {
             // View navigation to destination
+            let directionRequest = MKDirectionsRequest()
+            directionRequest.source = MKMapItem(placemark: MKPlacemark(coordinate: source.coordinate))
+            directionRequest.destination = MKMapItem(placemark: MKPlacemark(coordinate: dest))
+            directionRequest.transportType = .walking
             
+            let directions = MKDirections(request: directionRequest)
+            
+            directions.calculate(completionHandler: {(response, error) in
+                if (error != nil) {
+                    print("Error getting directions")
+                } else {
+                    self.showRoute(response!)
+                }
+            })
         }
+    }
+    
+    func showRoute(_ response: MKDirectionsResponse) {
+        routePolylines = []
+        for route in response.routes {
+            routePolylines!.append(route.polyline)
+        }
+        mapView.addOverlays(routePolylines!, level: .aboveRoads)
     }
 }
 
