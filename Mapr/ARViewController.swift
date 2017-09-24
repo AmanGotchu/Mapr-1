@@ -58,16 +58,17 @@ class ARViewController: UIViewController {
         let candle = Marker()
         candle.loadModal()
         
-        let xPosCurrent = CLLocation[0]
-        let yPosCurrent = CLLocation[1]
-        let zPosCurrent = CLLocation[12]
-        
-        let xPosDes = CLLocationCoordinate2D[0]
-        let yPosDes = CLLocationCoordinate2D[1]
-        let zPosDes = CLLocationCoordinate2D[2]
-        
-        candle.position = SCNVector3(xPosCurrent, yPosCurrent, zPosCurrent)
-        candle.position = SCNVector3(xPosDes, yPosDes, zPosDes)
+//        let xPosCurrent = CLLocation[0]
+//        let yPosCurrent = CLLocation[1]
+//        let zPosCurrent = CLLocation[12]
+//        
+//        let xPosDes = CLLocationCoordinate2D[0]
+//        let yPosDes = CLLocationCoordinate2D[1]
+//        let zPosDes = CLLocationCoordinate2D[2]
+        var cPos = getDistance((destination!.latitude), (destination!.longitude))
+        print (getDistance((destination!.latitude),(destination!.longitude)))
+        candle.position = SCNVector3(cPos[0], -0.1, cPos[1])
+//        candle.position = SCNVector3(xPosDes, yPosDes, zPosDes)
         
         sceneView.scene.rootNode.addChildNode(candle)
     }

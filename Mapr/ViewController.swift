@@ -113,6 +113,7 @@ class ViewController: UIViewController {
             print("Segue to ARView")
             if let dest = segue.destination as? ARViewController {
                 dest.destination = self.destination
+                dest.initLocation = currentLocation
                 dest.routePolylines = self.routePolylines
             }
         }
