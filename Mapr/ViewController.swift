@@ -29,6 +29,7 @@ class ViewController: UIViewController {
     var routePolylines: [MKPolyline]?
     
     var timer = Timer()
+    var pin: MKPointAnnotation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +62,7 @@ class ViewController: UIViewController {
 //            self.pinBus()
 //        }
 //        DispatchQueue.global(qos: .background).async(execute: task)
-        timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(self.pinBus), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(self.pinBus), userInfo: nil, repeats: true)
 
     }
 
@@ -135,7 +136,6 @@ class ViewController: UIViewController {
     
     @objc func pinBus() {
 //        var pins: [MKPointAnnotation] = []
-        var pin: MKPointAnnotation?
         var points = [[29.717477, -95.408437], [29.716089, -95.407749], [29.716452, -95.406773], [29.714868, -95.405925],
                       [29.718297, -95.397245], [29.718679, -95.397331], [29.719052, -95.396505], [29.719900, -95.396934],
                       [29.719587, -95.397761], [29.719848, -95.398141], [29.716745, -95.406016], [29.718143, -95.406746]]
@@ -144,42 +144,47 @@ class ViewController: UIViewController {
             distances.append(getLocation(points[i]).distance(from: getLocation(points[i-1])))
         }
         distances.append(getLocation(points[0]).distance(from: getLocation(points[11])))
+        print("Distances:")
+        print(distances)
         var totalDistance: Double = 0
         for distance in distances {
             totalDistance += distance
         }
         
-        var timeInterval: Double = 20
+        let timeInterval: Double = 300
         
-        var distancePerTime = totalDistance / timeInterval
+        let distancePerTime = totalDistance / timeInterval
+        print("Distance Per Time:")
+        print(distancePerTime)
         
-//        while (true) {
-            var time = NSDate().timeIntervalSince1970
-            time = time.truncatingRemainder(dividingBy: timeInterval)
-            
-            var distance = distancePerTime * time
-            var curDistance: Double = 0
-            for i in 0..<distances.count {
-                if (curDistance + distances[i] > distance) {
-                    var firstWeight = (distance - curDistance)/distances[i]
-                    var secondWeight = 1 - firstWeight
-                    var nextPoint = (i+1) % distances.count
-                    var lat: Double = firstWeight*points[i][0] + secondWeight*points[nextPoint][0]
-                    var long: Double = firstWeight*points[i][1] + secondWeight*points[nextPoint][1]
-                    if let ppin = pin {
-                        mapView.removeAnnotation(pin!)
-                    }
-                    pin = MKPointAnnotation()
-                    pin!.coordinate = CLLocationCoordinate2D(latitude: lat, longitude:long)
-                    mapView.addAnnotation(pin!)
-                    
-                } else {
-                    curDistance += distances[i]
+        var time = NSDate().timeIntervalSince1970
+        time = time.truncatingRemainder(dividingBy: timeInterval)
+        
+        let distance = distancePerTime * time
+        print("Time and Distance:")
+        print(time)
+        print(distance)
+        var curDistance: Double = 0
+        for i in 0..<distances.count {
+            if (curDistance + distances[i] + 0.001 >= distance) {
+                let firstWeight = (distance - curDistance)/distances[i]
+                let secondWeight = 1 - firstWeight
+                let nextPoint = (i+1) % distances.count
+                let lat: Double = secondWeight*points[i][0] + firstWeight*points[nextPoint][0]
+                let long: Double = secondWeight*points[i][1] + firstWeight*points[nextPoint][1]
+                if let ppin = pin {
+                    mapView.removeAnnotation(pin!)
                 }
+                pin = MKPointAnnotation()
+                pin!.coordinate = CLLocationCoordinate2D(latitude: lat, longitude:long)
+                mapView.addAnnotation(pin!)
+                break
+            } else {
+                curDistance += distances[i]
             }
-//             lat long
-            
-//        }
+        }
     }
+    
+    
 }
 

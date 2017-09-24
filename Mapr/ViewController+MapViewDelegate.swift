@@ -18,4 +18,13 @@ extension ViewController: MKMapViewDelegate {
         renderer.lineWidth = 5.0
         return renderer
     }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if !(annotation is MKPointAnnotation){
+            print("NOT REGISTERED AS MKPOINTANNOTATION");
+            return nil
+            
+        }
+        
+    }
 }
