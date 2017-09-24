@@ -1,5 +1,5 @@
 # Mapr
-HackRice 2017
+# HackRice 2017 >>>>>>
 MAPR is an Intelligent Augmented Reality Navigation App. MAPR is made up of two screens: the Map screen and the AR screen.
 
 On the Map screen, users can find the destination they want to get to, and receive standard maps navigation in multiple modes of transport. Furthermore, MAPR connects to the Rice RideSystems API and Houston Metro API to gather the realtime location data of buses, displaying them on the map. When a user chooses to take public transport, the app intelligently shows them the location and other information about the bus they are taking.
