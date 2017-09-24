@@ -11,6 +11,10 @@ import MapKit
 import CoreLocation
 import Dispatch
 
+class CustomAnnotation: MKPointAnnotation {
+    
+}
+
 class ViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet var gestureRecognizer: UILongPressGestureRecognizer!
@@ -29,7 +33,7 @@ class ViewController: UIViewController {
     var routePolylines: [MKPolyline]?
     
     var timer = Timer()
-    var pin: MKPointAnnotation?
+    var pin: CustomAnnotation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,8 +148,8 @@ class ViewController: UIViewController {
             distances.append(getLocation(points[i]).distance(from: getLocation(points[i-1])))
         }
         distances.append(getLocation(points[0]).distance(from: getLocation(points[11])))
-        print("Distances:")
-        print(distances)
+//        print("Distances:")
+//        print(distances)
         var totalDistance: Double = 0
         for distance in distances {
             totalDistance += distance
@@ -154,16 +158,16 @@ class ViewController: UIViewController {
         let timeInterval: Double = 300
         
         let distancePerTime = totalDistance / timeInterval
-        print("Distance Per Time:")
-        print(distancePerTime)
+//        print("Distance Per Time:")
+//        print(distancePerTime)
         
         var time = NSDate().timeIntervalSince1970
         time = time.truncatingRemainder(dividingBy: timeInterval)
         
         let distance = distancePerTime * time
-        print("Time and Distance:")
-        print(time)
-        print(distance)
+//        print("Time and Distance:")
+//        print(time)
+//        print(distance)
         var curDistance: Double = 0
         for i in 0..<distances.count {
             if (curDistance + distances[i] + 0.001 >= distance) {
@@ -173,11 +177,11 @@ class ViewController: UIViewController {
                 let lat: Double = secondWeight*points[i][0] + firstWeight*points[nextPoint][0]
                 let long: Double = secondWeight*points[i][1] + firstWeight*points[nextPoint][1]
                 
-                var previousPin: MKPointAnnotation?
+                var previousPin: CustomAnnotation?
                 if let ppin = pin {
                     previousPin = pin!
                 }
-                pin = MKPointAnnotation()
+                pin = CustomAnnotation()
                 pin!.coordinate = CLLocationCoordinate2D(latitude: lat, longitude:long)
                 mapView.addAnnotation(pin!)
                 if let ppin = previousPin {
