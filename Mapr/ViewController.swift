@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import Dispatch
 
 class ViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
@@ -26,6 +27,8 @@ class ViewController: UIViewController {
     var destinationPin: MKPointAnnotation?
     
     var routePolylines: [MKPolyline]?
+    
+    var timer = Timer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +55,14 @@ class ViewController: UIViewController {
         // Set up buttons
         arButton.layer.cornerRadius = 8
         navigateButton.layer.cornerRadius = 8
+        
+        // Set up bus icon moving
+//        let task = DispatchWorkItem {
+//            self.pinBus()
+//        }
+//        DispatchQueue.global(qos: .background).async(execute: task)
+        timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(self.pinBus), userInfo: nil, repeats: true)
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -117,6 +128,58 @@ class ViewController: UIViewController {
                 dest.routePolylines = self.routePolylines
             }
         }
+    }
+    func getLocation(_ point: [Double]) -> CLLocation {
+        return CLLocation(latitude: point[0], longitude: point[1])
+    }
+    
+    @objc func pinBus() {
+//        var pins: [MKPointAnnotation] = []
+        var pin: MKPointAnnotation?
+        var points = [[29.717477, -95.408437], [29.716089, -95.407749], [29.716452, -95.406773], [29.714868, -95.405925],
+                      [29.718297, -95.397245], [29.718679, -95.397331], [29.719052, -95.396505], [29.719900, -95.396934],
+                      [29.719587, -95.397761], [29.719848, -95.398141], [29.716745, -95.406016], [29.718143, -95.406746]]
+        var distances: [Double] = []
+        for i in 1..<points.count {
+            distances.append(getLocation(points[i]).distance(from: getLocation(points[i-1])))
+        }
+        distances.append(getLocation(points[0]).distance(from: getLocation(points[11])))
+        var totalDistance: Double = 0
+        for distance in distances {
+            totalDistance += distance
+        }
+        
+        var timeInterval: Double = 20
+        
+        var distancePerTime = totalDistance / timeInterval
+        
+//        while (true) {
+            var time = NSDate().timeIntervalSince1970
+            time = time.truncatingRemainder(dividingBy: timeInterval)
+            
+            var distance = distancePerTime * time
+            var curDistance: Double = 0
+            for i in 0..<distances.count {
+                if (curDistance + distances[i] > distance) {
+                    var firstWeight = (distance - curDistance)/distances[i]
+                    var secondWeight = 1 - firstWeight
+                    var nextPoint = (i+1) % distances.count
+                    var lat: Double = firstWeight*points[i][0] + secondWeight*points[nextPoint][0]
+                    var long: Double = firstWeight*points[i][1] + secondWeight*points[nextPoint][1]
+                    if let ppin = pin {
+                        mapView.removeAnnotation(pin!)
+                    }
+                    pin = MKPointAnnotation()
+                    pin!.coordinate = CLLocationCoordinate2D(latitude: lat, longitude:long)
+                    mapView.addAnnotation(pin!)
+                    
+                } else {
+                    curDistance += distances[i]
+                }
+            }
+//             lat long
+            
+//        }
     }
 }
 

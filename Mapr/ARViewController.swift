@@ -81,7 +81,7 @@ class ARViewController: UIViewController {
     
     @IBAction func addCube(_ sender: Any) {
         
-        let cubeNode = SCNNode(geometry: SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0))
+        let cubeNode = SCNNode(geometry: SCNBox(width: 0.01, height: 0.01, length: 2, chamferRadius: 0))
         
         let cc = getCameraCoordinates(sceneView: sceneView)
         cubeNode.position = SCNVector3(cc.x, cc.y, cc.z)
