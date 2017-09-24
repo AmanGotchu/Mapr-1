@@ -19,12 +19,12 @@ extension ViewController: MKMapViewDelegate {
         return renderer
     }
     
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if !(annotation is MKPointAnnotation){
-            print("NOT REGISTERED AS MKPOINTANNOTATION");
-            return nil
-            
-        }
-        
-    }
+//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//        if !(annotation is MKPointAnnotation){
+//            print("NOT REGISTERED AS MKPOINTANNOTATION");
+//            return nil
+//            
+//        }
+//        
+//    }
 }
