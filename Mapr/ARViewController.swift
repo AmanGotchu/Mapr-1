@@ -130,8 +130,8 @@ class ARViewController: UIViewController {
     }
     
     func getDistance(_ latitude: Double, _ longitude: Double) -> [Double]{
-        let x = initLocation?.distance(from: CLLocation(latitude: initLocation?.coordinate.latitude!, longitude: longitude)) * (longitude>initLocation?.coordinate.longitude) ? 1 : -1
-        let y = initLocation?.distance(from: CLLocation(latitude: latitude, longitude: initLocation?.coordinate.longitude!)) * (latitude>initLocation?.coordinate.latitude) ? 1 : -1
+        let x = initLocation!.distance(from: CLLocation(latitude: initLocation!.coordinate.latitude, longitude: longitude)) * ((longitude > initLocation!.coordinate.longitude) ? 1 : -1)
+        let y = initLocation!.distance(from: CLLocation(latitude: latitude, longitude: initLocation!.coordinate.longitude)) * ((latitude > initLocation!.coordinate.latitude) ? 1 : -1)
         return [x, y]
     }
 }
