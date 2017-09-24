@@ -30,6 +30,7 @@
 		05689ACE1F767979002DBA61 /* ViewController+MapViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+MapViewDelegate.swift"; sourceTree = "<group>"; };
 		05DF59431F767D8500151C73 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		05DF59451F76806600151C73 /* ViewController+CLLocationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+CLLocationManagerDelegate.swift"; sourceTree = "<group>"; };
+		05DF594A1F773F7D00151C73 /* Models.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Models.scnassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +72,7 @@
 				05689AC81F7677A8002DBA61 /* ARViewController.swift */,
 				05689ABA1F76760A002DBA61 /* Main.storyboard */,
 				05689ABD1F76760A002DBA61 /* Assets.xcassets */,
+				05DF594A1F773F7D00151C73 /* Models.scnassets */,
 				05689ABF1F76760A002DBA61 /* LaunchScreen.storyboard */,
 				05689AC21F76760A002DBA61 /* Info.plist */,
 			);
