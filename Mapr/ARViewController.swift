@@ -18,6 +18,7 @@ class ARViewController: UIViewController {
     
     var locationManager: CLLocationManager!
     var currentLocation: CLLocation?
+    var initLocation: CLLocation?
     
     var destination: CLLocationCoordinate2D?
     var routePolylines: [MKPolyline]?
@@ -126,6 +127,12 @@ class ARViewController: UIViewController {
         cc.z = cameraCoordinates.translation.z
         
         return cc
+    }
+    
+    func getDistance(_ latitude: Double, _ longitude: Double) -> [Double]{
+        let x = initLocation?.distance(from: CLLocation(latitude: initLocation?.coordinate.latitude!, longitude: longitude)) * (longitude>initLocation?.coordinate.longitude) ? 1 : -1
+        let y = initLocation?.distance(from: CLLocation(latitude: latitude, longitude: initLocation?.coordinate.longitude!)) * (latitude>initLocation?.coordinate.latitude) ? 1 : -1
+        return [x, y]
     }
 }
 

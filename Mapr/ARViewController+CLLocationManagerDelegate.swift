@@ -12,5 +12,8 @@ import CoreLocation
 extension ARViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = locations.last
+        if (initLocation == nil) {
+            initLocation = currentLocation
+        }
     }
 }
