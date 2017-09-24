@@ -107,5 +107,15 @@ class ViewController: UIViewController {
         }
         mapView.addOverlays(routePolylines!, level: .aboveRoads)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "showARView") {
+            print("Segue to ARView")
+            if let dest = segue.destination as? ARViewController {
+                dest.destination = self.destination
+                dest.routePolylines = self.routePolylines
+            }
+        }
+    }
 }
 

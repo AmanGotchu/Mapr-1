@@ -8,11 +8,19 @@
 
 import UIKit
 import ARKit
+import CoreLocation
+import MapKit
 
 class ARViewController: UIViewController {
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var mapButton: UIButton!
     @IBOutlet weak var addCubeButton: UIButton!
+    
+    var locationManager: CLLocationManager!
+    var currentLocation: CLLocation?
+    
+    var destination: CLLocationCoordinate2D?
+    var routePolylines: [MKPolyline]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +34,11 @@ class ARViewController: UIViewController {
         // Round buttons
         mapButton.layer.cornerRadius = 8
         addCubeButton.layer.cornerRadius = 8
+        
+        // Location Manager
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.startUpdatingLocation()
     }
     
     func randFloat(min: Float, max: Float) -> Float{

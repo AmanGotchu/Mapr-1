@@ -29,7 +29,7 @@
                                 </constraints>
                                 <state key="normal" title="AR"/>
                                 <connections>
-                                    <segue destination="MyQ-ON-sBS" kind="presentation" modalTransitionStyle="flipHorizontal" id="IHQ-ii-qxK"/>
+                                    <segue destination="MyQ-ON-sBS" kind="presentation" identifier="showARView" modalTransitionStyle="flipHorizontal" id="IHQ-ii-qxK"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7hm-cn-cGW">
