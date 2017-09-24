@@ -172,12 +172,17 @@ class ViewController: UIViewController {
                 let nextPoint = (i+1) % distances.count
                 let lat: Double = secondWeight*points[i][0] + firstWeight*points[nextPoint][0]
                 let long: Double = secondWeight*points[i][1] + firstWeight*points[nextPoint][1]
+                
+                var previousPin: MKPointAnnotation?
                 if let ppin = pin {
-                    mapView.removeAnnotation(pin!)
+                    previousPin = pin!
                 }
                 pin = MKPointAnnotation()
                 pin!.coordinate = CLLocationCoordinate2D(latitude: lat, longitude:long)
                 mapView.addAnnotation(pin!)
+                if let ppin = previousPin {
+                    mapView.removeAnnotation(previousPin!)
+                }
                 break
             } else {
                 curDistance += distances[i]
