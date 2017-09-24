@@ -26,10 +26,13 @@ class ARViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = .horizontal
+        let scene = SCNScene()
+        sceneView.scene = scene
         
-        sceneView.session.run(configuration)
+//        let configuration = ARWorldTrackingConfiguration()
+//        configuration.planeDetection = .horizontal
+//        
+//        sceneView.session.run(configuration)
         
         // Round buttons
         mapButton.layer.cornerRadius = 8
@@ -40,6 +43,35 @@ class ARViewController: UIViewController {
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = .horizontal
+        sceneView.session.run(configuration)
+        
+        addObject()
+    }
+    
+    func addObject(){
+        let candle = Marker()
+        candle.loadModal()
+        
+        let xPosCurrent = CLLocation[0]
+        let yPosCurrent = CLLocation[1]
+        let zPosCurrent = CLLocation[12]
+        
+        let xPosDes = CLLocationCoordinate2D[0]
+        let yPosDes = CLLocationCoordinate2D[1]
+        let zPosDes = CLLocationCoordinate2D[2]
+        
+        candle.position = SCNVector3(xPosCurrent, yPosCurrent, zPosCurrent)
+        candle.position = SCNVector3(xPosDes, yPosDes, zPosDes)
+        
+        sceneView.scene.rootNode.addChildNode(candle)
+    }
+    
+    
     
     func randFloat(min: Float, max: Float) -> Float{
         return (Float(arc4random())/0xFFFFFFFF) * (max - min) + min

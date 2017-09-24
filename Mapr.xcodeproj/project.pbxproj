@@ -17,6 +17,7 @@
 		05DF59441F767D8500151C73 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05DF59431F767D8500151C73 /* MapKit.framework */; };
 		05DF59461F76806600151C73 /* ViewController+CLLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DF59451F76806600151C73 /* ViewController+CLLocationManagerDelegate.swift */; };
 		05DF594C1F77552100151C73 /* ARViewController+CLLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DF594B1F77552100151C73 /* ARViewController+CLLocationManagerDelegate.swift */; };
+		05DF594E1F7762F900151C73 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DF594D1F7762F900151C73 /* Marker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		05DF59451F76806600151C73 /* ViewController+CLLocationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+CLLocationManagerDelegate.swift"; sourceTree = "<group>"; };
 		05DF594A1F773F7D00151C73 /* Models.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Models.scnassets; sourceTree = "<group>"; };
 		05DF594B1F77552100151C73 /* ARViewController+CLLocationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARViewController+CLLocationManagerDelegate.swift"; sourceTree = "<group>"; };
+		05DF594D1F7762F900151C73 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				05689ACE1F767979002DBA61 /* ViewController+MapViewDelegate.swift */,
 				05DF59451F76806600151C73 /* ViewController+CLLocationManagerDelegate.swift */,
 				05689AC81F7677A8002DBA61 /* ARViewController.swift */,
+				05DF594D1F7762F900151C73 /* Marker.swift */,
 				05DF594B1F77552100151C73 /* ARViewController+CLLocationManagerDelegate.swift */,
 				05689ABA1F76760A002DBA61 /* Main.storyboard */,
 				05689ABD1F76760A002DBA61 /* Assets.xcassets */,
@@ -173,6 +176,7 @@
 				05689AB91F76760A002DBA61 /* ViewController.swift in Sources */,
 				05689AB71F76760A002DBA61 /* AppDelegate.swift in Sources */,
 				05DF59461F76806600151C73 /* ViewController+CLLocationManagerDelegate.swift in Sources */,
+				05DF594E1F7762F900151C73 /* Marker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
